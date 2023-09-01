@@ -28,4 +28,4 @@ https://github.com/MatsuriDayo/NekoBoxForAndroid/releases
 
 https://github.com/MatsuriDayo/plugins/releases/tag/juicity-test-3
 
-# after add config to program edit config and enable allowInsecure 
+# after add config to program edit config and enable 'allowInsecure'
