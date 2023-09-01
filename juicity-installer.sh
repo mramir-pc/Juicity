@@ -121,6 +121,8 @@ chmod +x $JUICITY_SERVER
 echo ""
 read -p "Enter listen port (or press enter to randomize between 10000 and 65535): " PORT
 echo ""
+read -p "Enter domain config : " DOMAIN_CONFIG
+echo ""
 [[ -z "$PORT" ]] && PORT=$((RANDOM % 55536 + 10000))
 echo ""
 read -p "Enter password (or press enter to generate one): " PASSWORD
@@ -133,7 +135,7 @@ UUID=$(uuidgen)
 
 # Generate keys
 openssl ecparam -genkey -name prime256v1 -out "$INSTALL_DIR/private.key"
-openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=namasha.com"
+openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
 
 cat > $CONFIG_FILE <<EOL
 {
