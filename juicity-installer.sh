@@ -20,7 +20,7 @@ print_with_delay() {
 # Introduction animation
 echo ""
 echo ""
-print_with_delay "juicity-installer by DEATHLINE | @NamelesGhoul" 0.1
+print_with_delay "juicity-installer by DEATHLINE | @mramir-pc" 0.2
 echo ""
 echo ""
 
@@ -121,8 +121,6 @@ chmod +x $JUICITY_SERVER
 echo ""
 read -p "Enter listen port (or press enter to randomize between 10000 and 65535): " PORT
 echo ""
-read -p "Enter domain config : " DOMAIN_CONFIG
-echo ""
 [[ -z "$PORT" ]] && PORT=$((RANDOM % 55536 + 10000))
 echo ""
 read -p "Enter password (or press enter to generate one): " PASSWORD
@@ -131,6 +129,9 @@ if [[ -z "$PASSWORD" ]]; then
     PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
     echo "Generated Password: $PASSWORD"
 fi
+echo ""
+read -p "Enter domain config : " DOMAIN_CONFIG
+echo ""
 UUID=$(uuidgen)
 
 # Generate keys
