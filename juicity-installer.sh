@@ -35,11 +35,13 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
     echo ""
     echo "1. Reinstall"
     echo ""
-    echo "2. Modify"
+    echo "2. Canghe Port"
     echo ""
-    echo "3. Uninstall"
+    echo "3. Canghe Domain"
     echo ""
-    read -p "Enter your choice (1/2/3): " choice
+    echo "4. Uninstall"
+    echo ""
+    read -p "Enter your choice (1/2/3/4): " choice
 
     case $choice in
         1)
@@ -50,36 +52,22 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
             rm -f $SERVICE_FILE
             ;;
         2)
-            echo ""
-            echo "d. change domain"
-            echo ""
-            echo "p. change port"
-            read -p "Enter your choice (d/p): " change_item
-	    
-            case $change_item in
-		d)
-		   read -p "Enter new listen port: " PORT
-	           sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
-	           sudo systemctl restart juicity
-	           SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-	           echo "New Share Link: $SHARE_LINK"
-	           exit 0
-	     	   ;;
-           	p)
-                  read -p "Enter domain config : " DOMAIN_CONFIG
-                  echo ""
-                  openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
-                  SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                  echo "New Share Link: $SHARE_LINK"
-                  exit 
-		  ;;
-   		*)
-	            echo "Invalid choice!"
-	            exit 1
-	            ;;
-    		esac
-
-        3)
+	read -p "Enter new listen port: " PORT
+	sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
+	sudo systemctl restart juicity
+	SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+	echo "New Share Link: $SHARE_LINK"
+	exit 0
+	;;
+ 	3)
+  	read -p "Enter domain config : " DOMAIN_CONFIG
+        echo ""
+        openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
+        SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+        echo "New Share Link: $SHARE_LINK"
+        exit 
+	;;
+        4)
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
             rm -rf $INSTALL_DIR
