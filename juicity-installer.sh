@@ -77,8 +77,8 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
 	            echo "Invalid choice!"
 	            exit 1
 	            ;;
-    esac
-            
+    		esac
+
         3)
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
