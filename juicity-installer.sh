@@ -28,14 +28,13 @@ sudo apt-get install -y unzip jq uuid-runtime > /dev/null 2>&1
 
 # Check for an existing installation
 if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
-    echo "Juicity already installed. Choose an option:"
-    echo ""
+    echo "Juicity installed :] "
     echo ""
     echo "1. Reinstall"
     echo ""
-    echo "2. Canghe Port"
+    echo "2. Change Port"
     echo ""
-    echo "3. Canghe Domain"
+    echo "3. Change Domain"
     echo ""
     echo "4. Uninstall"
     echo ""
@@ -150,6 +149,7 @@ read -p "Enter domain config ( or press Enter for speedtest.net ) : " DOMAIN_CON
 echo ""
 if [[ -z "$DOMAIN_CONFIG" ]]; then
 $DOMAIN_CONFIG = "www.speedtest.net"
+echo "Domain: $DOMAIN_CONFIG"
 fi
 
 UUID=$(uuidgen)
