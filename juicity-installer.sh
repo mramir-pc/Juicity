@@ -11,7 +11,7 @@ print_with_delay() {
     text="$1"
     for ((i = 0; i < ${#text}; i++)); do
         echo -n "${text:$i:1}"
-        sleep 1
+        sleep 0.1
     done
     echo
 }
