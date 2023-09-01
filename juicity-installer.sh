@@ -148,7 +148,7 @@ echo ""
 read -p "Enter domain config ( or press Enter for speedtest.net ) : " DOMAIN_CONFIG
 echo ""
 if [[ -z "$DOMAIN_CONFIG" ]]; then
-DOMAIN_CONFIG = $"www.speedtest.net"
+DOMAIN_CONFIG = 'www.speedtest.net'
 echo "Domain: $DOMAIN_CONFIG"
 fi
 
