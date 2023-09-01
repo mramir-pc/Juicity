@@ -19,7 +19,7 @@ print_with_delay() {
 
 # Introduction animation
 echo ""
-# print_with_delay "juicity-installer by mrAmirPc | @mramir-pc" 0.2
+print_with_delay "juicity-installer by mrAmirPc | @mramir-pc" 0.1
 echo ""
 
 # Install required packages
