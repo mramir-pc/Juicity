@@ -51,30 +51,34 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
             ;;
         2)
             echo ""
-            echo "1. change domain"
+            echo "d. change domain"
             echo ""
-            echo "2. change port"
-            read -p "Enter your choice (1/2): " change_item
-            if [[ $change_item -ne 1 ]];
-		then
-              	read -p "Enter new listen port: " PORT
-            	sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
-                sudo systemctl restart juicity
-                SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                echo "New Share Link: $SHARE_LINK"
-                exit 0
-            elif [[ $VAR -ne 2 ]];
-		then
-                read -p "Enter domain config : " DOMAIN_CONFIG
-                echo ""
-                openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
-                SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                echo "New Share Link: $SHARE_LINK"
-                exit 0
-            else
-              echo "Invalid choice!"
-                exit 1
-            fi
+            echo "p. change port"
+            read -p "Enter your choice (d/p): " change_item
+	    
+            case $change_item in
+		d)
+		   read -p "Enter new listen port: " PORT
+	           sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
+	           sudo systemctl restart juicity
+	           SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+	           echo "New Share Link: $SHARE_LINK"
+	           exit 0
+	     	   ;;
+           	p)
+                  read -p "Enter domain config : " DOMAIN_CONFIG
+                  echo ""
+                  openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
+                  SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+                  echo "New Share Link: $SHARE_LINK"
+                  exit 
+		  ;;
+   		*)
+	            echo "Invalid choice!"
+	            exit 1
+	            ;;
+    esac
+            
         3)
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
