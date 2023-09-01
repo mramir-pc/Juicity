@@ -42,6 +42,7 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
 
     case $choice in
         1)
+	echo ""
             echo "Reinstalling..."
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
