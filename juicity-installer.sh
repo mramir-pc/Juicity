@@ -54,7 +54,10 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
 	sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
 	sudo systemctl restart juicity
 	SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-	echo "New Share Link: $SHARE_LINK"
+	echo "New Link: "
+     	echo ""
+        echo "$SHARE_LINK"
+	echo ""
 	exit 0
 	;;
  	3)
@@ -62,7 +65,10 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
         echo ""
         openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
         SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-        echo "New Share Link: $SHARE_LINK"
+	echo "New Link: "
+     	echo ""
+        echo "$SHARE_LINK"
+	echo ""
         exit 
 	;;
         4)
@@ -130,16 +136,21 @@ echo ""
 read -p "Enter listen port (or press enter to randomize between 10000 and 65535): " PORT
 echo ""
 [[ -z "$PORT" ]] && PORT=$((RANDOM % 55536 + 10000))
+
 echo ""
-read -p "Enter password (or press enter to generate one): " PASSWORD
+read -p "Enter password (or press Enter to generate random): " PASSWORD
 echo ""
 if [[ -z "$PASSWORD" ]]; then
     PASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
     echo "Generated Password: $PASSWORD"
 fi
+
 echo ""
-read -p "Enter domain config : " DOMAIN_CONFIG
+read -p "Enter domain config ( or press Enter for speedtest.net ) : " DOMAIN_CONFIG
 echo ""
+if [[ -z "$DOMAIN_CONFIG" ]]; then
+$DOMAIN_CONFIG = "www.speedtest.net"
+fi
 
 UUID=$(uuidgen)
 
