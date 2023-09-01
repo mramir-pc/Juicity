@@ -72,6 +72,11 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
                     echo "New Share Link: $SHARE_LINK"
                     exit 0
                     ;;
+                *)
+                    echo "Invalid choice!"
+                    exit 1
+                    ;;
+            esac
         3)
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
