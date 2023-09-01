@@ -55,23 +55,23 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
             echo ""
             echo "2. change port"
             read -p "Enter your choice (1/2): " change_item
-            echo ""
-            1)
-                read -p "Enter domain config : " DOMAIN_CONFIG
-                echo ""
-                openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
-                SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                echo "New Share Link: $SHARE_LINK"
-                exit 0
-                ;;
-            2)
-                read -p "Enter new listen port: " PORT
-                sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
-                sudo systemctl restart juicity
-                SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                echo "New Share Link: $SHARE_LINK"
-                exit 0
-                ;;
+            case $change_item in
+                1)
+                    read -p "Enter domain config : " DOMAIN_CONFIG
+                    echo ""
+                    openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
+                    SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+                    echo "New Share Link: $SHARE_LINK"
+                    exit 0
+                    ;;
+                2)
+                    read -p "Enter new listen port: " PORT
+                    sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
+                    sudo systemctl restart juicity
+                    SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+                    echo "New Share Link: $SHARE_LINK"
+                    exit 0
+                    ;;
         3)
             sudo systemctl stop juicity
             sudo systemctl disable juicity > /dev/null 2>&1
