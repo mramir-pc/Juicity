@@ -137,7 +137,6 @@ read -p "Enter listen port (or press enter to randomize between 10000 and 65535)
 echo ""
 [[ -z "$PORT" ]] && PORT=$((RANDOM % 55536 + 10000))
 
-echo ""
 read -p "Enter password (or press Enter to generate random): " PASSWORD
 echo ""
 if [[ -z "$PASSWORD" ]]; then
@@ -145,7 +144,6 @@ if [[ -z "$PASSWORD" ]]; then
     echo "Generated Password: $PASSWORD"
 fi
 
-echo ""
 read -p "Enter domain config ( or press Enter for speedtest.net ) : " DOMAIN_CONFIG
 echo ""
 if [[ -z "$DOMAIN_CONFIG" ]]; then
