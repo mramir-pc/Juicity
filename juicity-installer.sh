@@ -9,10 +9,9 @@ JUICITY_SERVER="$INSTALL_DIR/juicity-server"
 # Function to print characters with delay
 print_with_delay() {
     text="$1"
-    delay="$1"
     for ((i = 0; i < ${#text}; i++)); do
         echo -n "${text:$i:1}"
-        sleep $delay
+        sleep 1
     done
     echo
 }
