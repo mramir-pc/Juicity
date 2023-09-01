@@ -24,7 +24,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/mramir-pc/Juicity/main/juici
 ## install NEKOBOX 
 https://github.com/MatsuriDayo/NekoBoxForAndroid/releases
 
-## install Juicity for NEKOBOX and Matsuri
+## install Juicity plugin for NEKOBOX and Matsuri
 
 https://github.com/MatsuriDayo/plugins/releases/tag/juicity-test-3
 
