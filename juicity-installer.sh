@@ -67,7 +67,7 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
         SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
 	echo "New Link: "
      	echo ""
-        echo "$SHARE_LINK&allow_insecure=1#mramir-pc"
+        echo "$SHARE_LINK#mramir-pc"
 	echo ""
         exit 
 	;;
@@ -202,6 +202,6 @@ sudo systemctl start juicity
 SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
 echo ""
 echo ""
-echo "$SHARE_LINK&allow_insecure=1#mramir-pc"
+echo "$SHARE_LINK#mramir-pc"
 echo ""
 echo ""
