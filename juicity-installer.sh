@@ -55,14 +55,16 @@ if [[ -d $INSTALL_DIR && -f $SERVICE_FILE ]]; then
             echo ""
             echo "2. change port"
             read -p "Enter your choice (1/2): " change_item
-            if [[ $change_item == 1 ]] then
-              read -p "Enter new listen port: " PORT
-            sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
+            if [[ $change_item == 1 ]]
+		then
+              	read -p "Enter new listen port: " PORT
+            	sed -i "s/\"listen\": \":.*\"/\"listen\": \":$PORT\"/" $CONFIG_FILE
                 sudo systemctl restart juicity
-                    SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
-                    echo "New Share Link: $SHARE_LINK"
-                    exit 0
-            elif [[ $VAR == 2 ]] then
+                SHARE_LINK=$($JUICITY_SERVER generate-sharelink -c $CONFIG_FILE)
+                echo "New Share Link: $SHARE_LINK"
+                exit 0
+            elif [[ $VAR == 2 ]] 
+		then
                 read -p "Enter domain config : " DOMAIN_CONFIG
                 echo ""
                 openssl req -new -x509 -days 36500 -key "$INSTALL_DIR/private.key" -out "$INSTALL_DIR/fullchain.cer" -subj "/CN=$DOMAIN_CONFIG"
